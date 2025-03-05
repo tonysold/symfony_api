@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+<h1>Поиск по адресам</h1>
+<form method="post">
+    <input type="text" name="query" placeholder="Введите запрос">
+    <button type="submit">Найти</button>
+</form>
+
+{% if result %}
+    <h2>Результат:</h2>
+    <pre>{{ result }}</pre>
+{% endif %}
+
+<h1>Поиск по ИНН</h1>
+<form method="post">
+    <input type="text" name="query" placeholder="Введите запрос">
+    <button type="submit">Найти</button>
+</form>
+
+{% if result %}
+    <h2>Результат:</h2>
+    <pre>{{ secondResult }}</pre>
+{% endif %}
+</body>
+</html>
