@@ -12,8 +12,16 @@
 </form>
 
 {% if result %}
-    <h2>Результат:</h2>
-    <pre>{{ result }}</pre>
+    <h2>Подсказки:</h2>
+   <ul>
+    {% for suggestion in result.suggestions %}
+        <li>
+            <strong>{{ suggestion.value }}</strong><br>
+            <small>{{ suggestion.unrestricted_value }}</small>
+        </li>
+    {% endfor %}
+</ul>
+
 {% endif %}
 
 <h1>Поиск по ИНН</h1>
@@ -22,9 +30,16 @@
     <button type="submit">Найти</button>
 </form>
 
-{% if result %}
+{% if secondResult %}
     <h2>Результат:</h2>
-    <pre>{{ secondResult }}</pre>
+    <ul>
+    {% for suggestion in secondResult.suggestions %}
+        <li>
+            <strong>{{ suggestion.value }}</strong><br>
+            <small>{{ suggestion.unrestricted_value }}</small>
+        </li>
+    {% endfor %}
+</ul>
 {% endif %}
 </body>
 </html>

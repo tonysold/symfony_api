@@ -32,7 +32,7 @@ class SearchController extends AbstractController
                     ],
                 ]);
 
-                $result = $response->getContent();
+                $result = $response->toArray();
 
                 // Второе подключение (ИНН)
                 $secondResponse = $client->request('POST', 'http://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party', [
@@ -46,7 +46,7 @@ class SearchController extends AbstractController
                     ],
                 ]);
 
-                $secondResult = $secondResponse->getContent();
+                $secondResult = $secondResponse->toArray();
             }
         }
 
