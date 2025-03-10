@@ -236,13 +236,13 @@
 					<td>{{ suggestion.data.inn|default('') }}</td>
 					<td>{{ suggestion.data.kpp|default('') }}</td>
 					<td>{{ suggestion.data.ogrn|default('') }}</td>
-					<td>{{ suggestion.data.ogrn_date|default('') | date("d.m.Y") }}</td>
+					<td>{{ suggestion.data.ogrn_date | slice(0, -3) | date("d.m.Y") }}</td>
 					<td>{{ suggestion.data.type == 'LEGAL' ? 'Юридическое лицо' : 'Индивидуальный предприниматель'|default('') }}</td>
 					<td>{{ suggestion.data.name.full_with_opf|default('') }}</td>
 					<td>{{ suggestion.data.name.short_with_opf|default('') }}</td>
 					<td>{{ suggestion.data.management.name|default('') }}</td>
 					<td>{{ suggestion.data.management.post|default('') }}</td>
-					<td>{{ suggestion.data.management.start_date|default('') }}</td>
+					<td>{{ suggestion.data.management is not null ? suggestion.data.management.start_date| slice(0, -3) | date("d.m.Y") : '' }}</td>
 					<td>{{ suggestion.data.okato|default('') }}</td>
 					<td>{{ suggestion.data.oktmo|default('') }}</td>
 					<td>{{ suggestion.data.okpo|default('') }}</td>
@@ -250,8 +250,8 @@
 					<td>{{ suggestion.data.okfs|default('') }}</td>
 					<td>{{ suggestion.data.okved|default('') }}</td>
 					<td>{{ suggestion.data.address.value|default('') }}</td>
-					<td>{{ suggestion.data.state.registration_date | date("d.m.Y")|default('') }}</td>
-					<td>{{ suggestion.data.state.liquidation_date ? suggestion.data.state.liquidation_date | date("d.m.Y") : '-' }}</td>
+					<td>{{ suggestion.data.state.registration_date| slice(0, -3)|date("d.m.Y")|default('') }}</td>
+					<td>{{ suggestion.data.state.liquidation_date| slice(0, -3) ? suggestion.data.state.liquidation_date| slice(0, -3) | date("d.m.Y") : '-' }}</td>
 					<td>
 						{% if suggestion.data.state.status == 'ACTIVE' %}
 							Действующая
