@@ -31,8 +31,14 @@ class SearchController extends AbstractController
                         'query' => $query,
                     ],
                 ]);
-
+            
                 $result = $response->toArray();
+            }
+        }
+                if ($request->isMethod('POST')) {
+                    $query = $request->request->get('secondQuery');
+                    if ($query) {
+                        $client = HttpClient::create();
 
                 // Второе подключение (ИНН)
                 $secondResponse = $client->request('POST', 'http://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party', [

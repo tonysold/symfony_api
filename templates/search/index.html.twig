@@ -1,45 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Search</title>
-</head>
-<body>
-<h1>Поиск по адресам</h1>
-<form method="post">
-    <input type="text" name="query" placeholder="Введите запрос">
-    <button type="submit">Найти</button>
-</form>
+	<head>
+		<meta charset="UTF-8">
+		<title>Search</title>
+	</head>
+	<body>
+		<h1>Поиск по адресам</h1>
+		<form method="post">
+			<input type="text" name="query" placeholder="Введите запрос">
+			<button type="submit">Найти</button>
+		</form>
 
-{% if result %}
-    <h2>Подсказки:</h2>
-   <ul>
-    {% for suggestion in result.suggestions %}
-        <li>
-            <strong>{{ suggestion.value }}</strong><br>
-            <small>{{ suggestion.unrestricted_value }}</small>
-        </li>
-    {% endfor %}
-</ul>
+		{% if result %}
+			<h2>Подсказки:</h2>
+			<table border="1">
+				<thead>
+					<tr></tr>
+					<tr>
+						<th>Адрес одной строкой</th>
+						<th>Адрес одной строкой (полный, с индексом)</th>
+						<th>Индекс</th>
+						<th>Страна</th>
+						<th>ISO-код страны (двухсимвольный)</th>
+						<th>Федеральный округ</th>
+						<th>ФИАС-код региона</th>
+						<th>КЛАДР-код региона</th>
+						<th>ISO-код региона</th>
+						<th>Регион с типом</th>
+						<th>Тип региона (сокращенный)</th>
+						<th>Тип региона</th>
+						<th>Регион</th>
+						<th>ФИАС-код района в регионе</th>
+						<th>КЛАДР-код района в регионе</th>
+						<th>Район в регионе с типом</th>
+						<th>Тип района в регионе (сокращенный)</th>
+						<th>Тип района в регионе</th>
+						<th>Район в регионе</th>
+						<th>ФИАС-код мун. поселения</th>
+						<th>КЛАДР-код мун. поселения</th>
+						<th>Мун. поселение с типом</th>
+						<th>Тип мун. поселения (сокращенный)</th>
+						<th>Тип мун. поселения</th>
+						<th>Мун. поселение</th>
+						<th>ФИАС-код города</th>
+						<th>КЛАДР-код города</th>
+						<th>Город с типом</th>
+						<th>Тип города (сокращенный)</th>
+						<th>Тип города</th>
+						<th>Город</th>
+						<th>ФИАС-код адм. района города</th>
+						<th>Адм. район города с типом</th>
+						<th>Тип адм. района города (сокращенный)</th>
+						<th>Тип адм. района города</th>
+						<th>Адм. район города</th>
+						<th>ФИАС-код нас. пункта</th>
+						<th>КЛАДР-код нас. пункта</th>
+						<th>Населенный пункт с типом</th>
+						<th>Тип населенного пункта (сокращенный)</th>
+						<th>Тип населенного пункта</th>
+						<th>Населенный пункт</th>
+						<th>ФИАС-код улицы</th>
+						<th>КЛАДР-код улицы</th>
+						<th>Улица с типом</th>
+						<th>Тип улицы (сокращенный)</th>
+						<th>Тип улицы</th>
+						<th>Улица</th>
+						<th>ФИАС-код земельного участка</th>
+						<th>КЛАДР-код земельного участка</th>
+						<th>Тип земельного участка</th>
+						<th>Полный тип земельного участка</th>
+						<th>Номер земельного участка</th>
+						<th>ФИАС-код дома</th>
+						<th>КЛАДР-код дома</th>
+						<th>Тип дома (сокращенный)</th>
+						<th>Тип дома</th>
+						<th>Дом</th>
+						<th>Тип корпуса/строения (сокращенный)</th>
+						<th>Тип корпуса/строения</th>
+						<th>Корпус/строение</th>
+						<th>ФИАС-код квартиры</th>
+						<th>Тип квартиры (сокращенный)</th>
+						<th>Тип квартиры</th>
+						<th>Квартира</th>
+						<th>ФИАС-код комнаты</th>
+						<th>Тип комнаты (сокращенный)</th>
+						<th>Тип комнаты</th>
+						<th>Комната</th>
+						<th>Абонентский ящик</th>
+						<th>ФИАС-код</th>
+						<th>Уровень детализации в ФИАС</th>
+						<th>КЛАДР-код</th>
+						<th>Идентификатор GeoNames</th>
+						<th>Признак центра района или региона</th>
+						<th>Код ОКАТО</th>
+						<th>Код ОКТМО</th>
+						<th>Код ИФНС для физлиц</th>
+						<th>Код ИФНС для организаций</th>
+						<th>Список исторических названий объекта</th>
+					</tr>
+				</thead>
+			</tr>
+		</thead>
+		<tbody>
+			{% for suggestion in result.suggestions %}
+				<tr>
+					<td>{{ suggestion.value }}</td>
+					<td>{{ suggestion.unrestricted_value }}</td>
+					<td>{{ suggestion.data.postal_code }}</td>
+					<td>{{ suggestion.data.country }}</td>
+					<td>{{ suggestion.data.country_iso_code }}</td>
+					<td>{{ suggestion.data.federal_district }}</td>
+					<td>{{ suggestion.data.region_fias_id }}</td>
+					<td>{{ suggestion.data.region_kladr_id }}</td>
+					<td>{{ suggestion.data.region_iso_code }}</td>
+					<td>{{ suggestion.data.region_with_type }}</td>
+					<td>{{ suggestion.data.region_type }}</td>
+					<td>{{ suggestion.data.region_type_full }}</td>
+					<td>{{ suggestion.data.region }}</td>
+					<td>{{ suggestion.data.area_fias_id }}</td>
+					<td>{{ suggestion.data.area_kladr_id }}</td>
+					<td>{{ suggestion.data.area_with_type }}</td>
+					<td>{{ suggestion.data.area_type }}</td>
+					<td>{{ suggestion.data.area_type_full }}</td>
+					<td>{{ suggestion.data.area }}</td>
+					<td>{{ suggestion.data.sub_area_fias_id|default('') }}</td>
+					<td>{{ suggestion.data.sub_area_kladr_id|default('') }}</td>
+					<td>{{ suggestion.data.sub_area_with_type|default('') }}</td>
+					<td>{{ suggestion.data.sub_area_type|default('') }}</td>
+					<td>{{ suggestion.data.sub_area_type_full|default('') }}</td>
+					<td>{{ suggestion.data.sub_area|default('') }}</td>
+					<td>{{ suggestion.data.city_fias_id|default('') }}</td>
+					<td>{{ suggestion.data.city_kladr_id|default('') }}</td>
+					<td>{{ suggestion.data.city_with_type|default('') }}</td>
+					<td>{{ suggestion.data.city_type|default('')}}</td>
+					<td>{{ suggestion.data.city_type_full }}</td>
+					<td>{{ suggestion.data.city|default('') }}</td>
+					<td>{{ suggestion.data.city_district_fias_id|default('') }}</td>
+					<td>{{ suggestion.data.city_district_with_type|default('') }}</td>
+					<td>{{ suggestion.data.city_district_type|default('') }}</td>
+					<td>{{ suggestion.data.city_district_type_full|default('') }}</td>
+					<td>{{ suggestion.data.city_district|default('') }}</td>
+					<td>{{ suggestion.data.settlement_fias_id|default('') }}</td>
+					<td>{{ suggestion.data.settlement_kladr_id|default('') }}</td>
+					<td>{{ suggestion.data.settlement_with_type|default('') }}</td>
+					<td>{{ suggestion.data.settlement_type|default('') }}</td>
+					<td>{{ suggestion.data.settlement_type_full|default('') }}</td>
+					<td>{{ suggestion.data.settlement|default('') }}</td>
+					<td>{{ suggestion.data.street_fias_id|default('') }}</td>
+					<td>{{ suggestion.data.street_kladr_id|default('') }}</td>
+					<td>{{ suggestion.data.street_with_type|default('') }}</td>
+					<td>{{ suggestion.data.street_type|default('') }}</td>
+					<td>{{ suggestion.data.street_type_full|default('') }}</td>
+					<td>{{ suggestion.data.street|default('') }}</td>
+					<td>{{ suggestion.data.stead_fias_id|default('') }}</td>
+					<td>{{ suggestion.data.stead_kladr_id|default('') }}</td>
+					<td>{{ suggestion.data.stead_type }}</td>
+					<td>{{ suggestion.data.stead_type_full }}</td>
+					<td>{{ suggestion.data.stead }}</td>
+					<td>{{ suggestion.data.house_fias_id|default('') }}</td>
+					<td>{{ suggestion.data.house_kladr_id|default('') }}</td>
+					<td>{{ suggestion.data.house_type|default('') }}</td>
+					<td>{{ suggestion.data.house_type_full|default('') }}</td>
+					<td>{{ suggestion.data.house|default('') }}</td>
+					<td>{{ suggestion.data.block_type|default('') }}</td>
+					<td>{{ suggestion.data.block_type_full|default('') }}</td>
+					<td>{{ suggestion.data.block|default('') }}</td>
+					<td>{{ suggestion.data.flat_fias_id|default('') }}</td>
+					<td>{{ suggestion.data.flat_type|default('') }}</td>
+					<td>{{ suggestion.data.flat_type_full|default('') }}</td>
+					<td>{{ suggestion.data.flat|default('') }}</td>
+					<td>{{ suggestion.data.room_fias_id|default('') }}</td>
+					<td>{{ suggestion.data.room_type|default('') }}</td>
+					<td>{{ suggestion.data.room_type_full|default('') }}</td>
+					<td>{{ suggestion.data.room|default('') }}</td>
+					<td>{{ suggestion.data.postal_box|default('') }}</td>
+					<td>{{ suggestion.data.fias_id|default('') }}</td>
+					<td>{{ suggestion.data.fias_level|default('') }}</td>
+					<td>{{ suggestion.data.kladr_id|default('') }}</td>
+					<td>{{ suggestion.data.geoname_id|default('') }}</td>
+					<td>{{ suggestion.data.capital_marker|default('') }}</td>
+					<td>{{ suggestion.data.okato|default('') }}</td>
+					<td>{{ suggestion.data.oktmo|default('') }}</td>
+					<td>{{ suggestion.data.tax_office|default('') }}</td>
+					<td>{{ suggestion.data.tax_office_legal|default('') }}</td>
+					<td>{{ suggestion.data.history_values|join(', ')|default('') }}</td>
+				</tr>
+
+			{% endfor %}
+
+		</tbody>
+</table>
 
 {% endif %}
 
 <h1>Поиск по ИНН</h1>
-<form method="post">
-    <input type="text" name="query" placeholder="Введите запрос">
-    <button type="submit">Найти</button>
+<form method="post"><input type="text" name="secondQuery" placeholder="Введите запрос">
+<button type="submit">Найти</button>
 </form>
 
 {% if secondResult %}
-    <h2>Результат:</h2>
-    <ul>
-    {% for suggestion in secondResult.suggestions %}
-        <li>
-            <strong>{{ suggestion.value }}</strong><br>
-            <small>{{ suggestion.unrestricted_value }}</small>
-        </li>
-    {% endfor %}
-</ul>
-{% endif %}
-</body>
-</html>
+
+<h2>Результат:</h2><ul>
+
+<table>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Наименование компании</th>
+				<th>ИНН</th>
+				<th>КПП</th>
+				<th>ОГРН</th>
+				<th>Дата выдачи ОГРН</th>
+				<th>Тип организации</th>
+				<th>Полное наименование</th>
+				<th>Краткое наименование</th>
+				<th>ФИО руководителя</th>
+				<th>Должность руководителя</th>
+				<th>Дата вступления в должность</th>
+				<th>Код ОКАТО</th>
+				<th>Код ОКТМО</th>
+				<th>Код ОКПО</th>
+				<th>Код ОКОГУ</th>
+				<th>Код ОКФС</th>
+				<th>Код ОКВЭД</th>
+				<th>Адрес</th>
+				<th>Дата регистрации</th>
+				<th>Дата ликвидации</th>
+				<th>Статус</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for suggestion in secondResult.suggestions %}
+				<tr>
+					<td>{{ suggestion.value|default('') }}</td>
+					<td>{{ suggestion.data.inn|default('') }}</td>
+					<td>{{ suggestion.data.kpp|default('') }}</td>
+					<td>{{ suggestion.data.ogrn|default('') }}</td>
+					<td>{{ suggestion.data.ogrn_date|default('') | date("d.m.Y") }}</td>
+					<td>{{ suggestion.data.type == 'LEGAL' ? 'Юридическое лицо' : 'Индивидуальный предприниматель'|default('') }}</td>
+					<td>{{ suggestion.data.name.full_with_opf|default('') }}</td>
+					<td>{{ suggestion.data.name.short_with_opf|default('') }}</td>
+					<td>{{ suggestion.data.management.name|default('') }}</td>
+					<td>{{ suggestion.data.management.post|default('') }}</td>
+					<td>{{ suggestion.data.management.start_date|default('') }}</td>
+					<td>{{ suggestion.data.okato|default('') }}</td>
+					<td>{{ suggestion.data.oktmo|default('') }}</td>
+					<td>{{ suggestion.data.okpo|default('') }}</td>
+					<td>{{ suggestion.data.okogu|default('') }}</td>
+					<td>{{ suggestion.data.okfs|default('') }}</td>
+					<td>{{ suggestion.data.okved|default('') }}</td>
+					<td>{{ suggestion.data.address.value|default('') }}</td>
+					<td>{{ suggestion.data.state.registration_date | date("d.m.Y")|default('') }}</td>
+					<td>{{ suggestion.data.state.liquidation_date ? suggestion.data.state.liquidation_date | date("d.m.Y") : '-' }}</td>
+					<td>
+						{% if suggestion.data.state.status == 'ACTIVE' %}
+							Действующая
+						{% elseif suggestion.data.state.status == 'LIQUIDATING' %}
+							Ликвидируется
+						{% elseif suggestion.data.state.status == 'LIQUIDATED' %}
+							Ликвидирована
+						{% elseif suggestion.data.state.status == 'BANKRUPT' %}
+							Банкротство
+						{% elseif suggestion.data.state.status == 'REORGANIZING' %}
+							Реорганизуется
+						{% else %}
+							Неизвестно
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endif %}</body></html>
